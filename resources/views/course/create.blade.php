@@ -3,6 +3,23 @@
 @section('content')
 <h2>Add Course</h2>
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+@endif
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif    
+
 <form action="{{ route('course.store') }}" method="POST">
     @csrf
     <div class="mb-3">

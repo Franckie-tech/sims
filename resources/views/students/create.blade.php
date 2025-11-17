@@ -4,17 +4,10 @@
 <div class="container">
     <h2>Add New Student</h2>
 
-    {{-- ✅ Success message --}}
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
 
-    {{-- Display validation errors --}}
-    @if ($errors->any())
-        <div style="color: red;">
+
+    @if($errors->any())
+        <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -22,6 +15,16 @@
             </ul>
         </div>
     @endif
+
+
+
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
 
     {{-- Student creation form --}}
     <form action="{{ route('students.store') }}" method="POST">
@@ -53,6 +56,10 @@
                 style="background-color: #4CAF50; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor:pointer;">
             Save Student
         </button>
+        <a href="{{ route('students.index') }}" 
+           style="margin-left: 10px; background-color: #f44336; color: white; padding: 8px 15px; border: none; border-radius: 5px; text-decoration: none;">
+            Cancel
+        </a>0
     </form>
 </div>
 @endsection

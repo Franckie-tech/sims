@@ -42,8 +42,8 @@
         </div>
 
         <div style="margin-bottom: 10px;">
-            <label for="score">Marks:</label><br>
-            <input type="number" name="score" id="score" value="{{ $result->score }}" required min="0" max="100">
+            <label for="marks">Marks:</label><br>
+            <input type="number" name="marks" id="marks" value="{{ $result->marks }}" required min="0" max="100">
         </div>
 
         <button type="submit" 

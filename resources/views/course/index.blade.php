@@ -16,6 +16,7 @@
         <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Code</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -24,6 +25,7 @@
         <tr>
             <td>{{ $loop->iteration }}</td>
             <td>{{ $course->name }}</td>
+            <td>{{ $course->code }}</td>
             <td>
                 <a href="{{ route('course.edit', $course->id) }}" class="btn btn-sm btn-warning">Edit</a>
                 <form action="{{ route('course.destroy', $course->id) }}" method="POST" class="d-inline"

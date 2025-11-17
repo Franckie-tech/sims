@@ -23,7 +23,7 @@
                 <td>{{ $result->student->name }}</td>
                 <td>{{ $result->subject->course->name }}</td>
                 <td>{{ $result->subject->name }}</td>
-                <td>{{ $result->score }}</td>
+                <td>{{ $result->marks }}</td>
                 <td>
                     <a href="{{ route('results.edit', $result->id) }}" class="btn btn-sm btn-warning">Edit</a>
                     <form action="{{ route('results.destroy', $result->id) }}" method="POST" style="display:inline;">

@@ -7,12 +7,13 @@ use App\Models\Subjects;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Student;
+use App\Models\User;
 
 class ResultsController extends Controller
 {
     //
     public function index(){
-        $results = Results::with(['student', 'subject', 'course', ])->get();
+        $results = Results::with(['student', 'subject.course',  ])->get();
         $subjects = Subjects::all();
         $course = Course::all();
         return view('results.index', compact('results', 'subjects', 'course'));
@@ -20,8 +21,8 @@ class ResultsController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'student_id'=>'required|exists:students,id',
-            'subject_id'=>'required|exists:subjects,id',
+            'student_id'=>'required|integer|max:255|exists:students,id',
+            'subject_id'=>'required|integer|max:255|exists:subjects,id',
             'marks'=>'required|numeric|min:0|max:100',
         ]);
 
@@ -51,6 +52,20 @@ class ResultsController extends Controller
             return 'F';
         }
     }
+
+   public function studentResults()
+{
+
+    /** @var \App\Models\User $user */
+
+    $results = auth()->user()->results;  
+
+  
+    return view('student.results', compact('results'));
+}
+
+
+
 
     public function edit($id){
         $result = Results::findOrFail($id);

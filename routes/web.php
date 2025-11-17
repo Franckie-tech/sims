@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\SubjectsController;
@@ -7,6 +8,13 @@ use App\Models\Subjects;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\CourseControllerController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Models\User;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,4 +52,53 @@ Route::get('/course/{id}', [CourseController::class, 'show'])->name('course.show
 Route::get('/course/{id}/edit', [CourseController::class, 'edit'])->name('course.edit');
 Route::put('/course/{id}', [CourseController::class, 'update'])->name('course.update');
 Route::delete('/course/{id}', [CourseController::class, 'destroy'])->name('course.destroy');
+
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/user', [UserController::class, 'store'])->name('user.store');
+Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])
+        ->name('admin.dashboard');
+});
+
+
+Route::middleware(['auth', 'teacher'])->group(function () {
+    Route::get('/teacher/dashboard', [TeacherController::class, 'index'])
+        ->name('teacher.dashboard');
+});
+
+
+Route::middleware(['auth', 'student'])->group(function () {
+    Route::get('/student/dashboard', [StudentController::class, 'index'])
+        ->name('student.dashboard');
+});
+
+Route::get('/student/results', [ResultsController::class, 'studentResults'])
+    ->name('student.results');
+
+
+
+
+
+
+
+// Admin dashboard); // points to resources/views/admin/dashboard.blade.php
+Route::get('admin/dashboard' , [AdminController::class, 'index'])->name('admin.dashboard');
+
+// Teacher dashboard
+Route::get('/teacher/dashboard', [TeacherController::class, 'index'])->name('teacher.dashboard');
+
+// Student dashboard
+Route::get('/student/dashboard', [StudentController ::class, 'index'])->name('student.dashboard');
+
+
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

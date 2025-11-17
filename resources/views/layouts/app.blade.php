@@ -11,8 +11,8 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">SIMS</a>
             <div>
-                <a href="{{ route('students.index') }}" class="nav-link d-inline text-white">Students</a>
-                <a href="{{ route('students.create') }}" class="nav-link d-inline text-white">Add Student</a>
+                <a href="{{ route('login') }}" class="nav-link d-inline text-white">Login</a>
+                
             </div>
         </div>
     </nav>
